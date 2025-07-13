@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useParams } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,8 +26,10 @@ const messages = [
     { author: "Alice J.", content: "I use it for everything from coding to history. The key is to be disciplined during the focus time - no distractions!", time: "10:35 AM" },
 ];
 
-export default function LiveDiscussionRoomPage({ params }: { params: { id: string } }) {
-  const discussionTitle = params.id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+export default function LiveDiscussionRoomPage() {
+  const params = useParams();
+  const id = params.id as string || '';
+  const discussionTitle = id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
   return (
     <div className="h-[calc(100vh-4rem)] flex flex-col p-4 md:p-6 bg-background">
