@@ -1,4 +1,5 @@
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,10 +25,25 @@ export default function ProfileSettingsPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <CardTitle>Personal Information</CardTitle>
-            <CardDescription>Update your name and academic details.</CardDescription>
+            <CardDescription>Update your name, photo, and academic details.</CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form className="space-y-6">
+              <div className="flex items-center gap-6">
+                <Avatar className="h-20 w-20">
+                  <AvatarImage src={currentUser.avatarUrl} alt={currentUser.name} data-ai-hint="avatar" />
+                  <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div className="space-y-1">
+                    <Label>Profile Photo</Label>
+                    <div className="flex gap-2">
+                        <Button variant="outline">Change Photo</Button>
+                        <Input id="picture" type="file" className="hidden" />
+                    </div>
+                    <p className="text-sm text-muted-foreground">JPG, GIF or PNG. 1MB max.</p>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="full-name">Full Name</Label>
                 <Input id="full-name" defaultValue={currentUser.name} />
