@@ -26,3 +26,11 @@ export type Student = {
   year: number;
   isOnline: boolean;
 };
+
+export type LiveDiscussion = {
+  id: string;
+  title: string;
+  description: string;
+  topic: string;
+  participants: number;
+};

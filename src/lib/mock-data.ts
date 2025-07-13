@@ -1,4 +1,4 @@
-import type { Question, Student } from './types';
+import type { Question, Student, LiveDiscussion } from './types';
 
 export const currentUser: Student = {
     id: 's6',
@@ -108,4 +108,35 @@ export const students: Student[] = [
     { id: 's8', name: 'Hannah Wilson', avatarUrl: 'https://placehold.co/100x100.png', major: 'Physics', year: 1, isOnline: true },
     { id: 's9', name: 'Ian Martinez', avatarUrl: 'https://placehold.co/100x100.png', major: 'History', year: 2, isOnline: false },
     { id: 's10', name: 'Jessica Lee', avatarUrl: 'https://placehold.co/100x100.png', major: 'Biology', year: 4, isOnline: true },
+];
+
+export const liveDiscussions: LiveDiscussion[] = [
+    {
+        id: 'study-strategies-for-finals',
+        title: 'Study Strategies for Finals',
+        description: 'A place to share and discover the best techniques for acing final exams.',
+        topic: 'Academics',
+        participants: 24,
+    },
+    {
+        id: 'senior-project-brainstorm',
+        title: 'Senior Project Brainstorm',
+        description: 'For final year students to brainstorm ideas for their capstone projects.',
+        topic: 'Computer Science',
+        participants: 12,
+    },
+    {
+        id: 'campus-band-meetup',
+        title: 'Campus Band Meetup',
+        description: 'Musicians unite! Let\'s jam, plan gigs, and talk about music.',
+        topic: 'Social',
+        participants: 8,
+    },
+     {
+        id: 'quantum-mechanics-study-group',
+        title: 'Quantum Mechanics Study Group',
+        description: 'Diving deep into the weird and wonderful world of quantum physics.',
+        topic: 'Physics',
+        participants: 15,
+    },
 ];
