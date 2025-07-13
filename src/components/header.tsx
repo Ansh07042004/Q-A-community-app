@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, PenSquare, Search, X } from "lucide-react";
+import { BookMarked, Menu, PenSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
-import { cn } from "@/lib/utils";
+import { SearchInput } from "./search-input";
 
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
@@ -32,10 +31,7 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex items-center gap-4 flex-1 max-w-xs">
-           <div className="relative w-full">
-             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-             <Input placeholder="Search..." className="pl-9" />
-           </div>
+           <SearchInput placeholder="Search..." />
         </div>
 
         <div className="hidden md:flex items-center gap-2">
@@ -73,9 +69,8 @@ export function Header() {
                   ))}
                 </nav>
                 <div className="mt-6 pt-6 border-t">
-                  <div className="relative w-full mb-4">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search..." className="pl-9" />
+                  <div className="mb-4">
+                    <SearchInput placeholder="Search..." />
                   </div>
                   <div className="flex flex-col gap-2">
                     <Button variant="outline" asChild>

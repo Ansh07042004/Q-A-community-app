@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { ArrowRight, BookOpenText, GraduationCap, Search } from 'lucide-react';
+import { ArrowRight, BookOpenText, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { QuestionCard } from '@/components/question-card';
 import { questions } from '@/lib/mock-data';
+import { SearchInput } from '@/components/search-input';
 
 export default function Home() {
   return (
@@ -20,10 +20,11 @@ export default function Home() {
             Your hub for collaborative learning. Ask questions, share knowledge, and connect with fellow students.
           </p>
           <div className="mt-8 max-w-xl mx-auto flex gap-2">
-            <div className="relative flex-grow">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input placeholder="Search for questions, topics, or keywords..." className="pl-10 h-12 text-base" />
-            </div>
+            <SearchInput 
+              placeholder="Search for questions, topics, or keywords..." 
+              className="h-12 text-base pl-10"
+              containerClassName="flex-grow"
+            />
             <Button size="lg" asChild>
               <Link href="/ask">
                 Ask a Question
