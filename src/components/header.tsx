@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, PenSquare, X } from "lucide-react";
+import { BookMarked, Menu, PenSquare, X, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -11,6 +11,7 @@ import { SearchInput } from "./search-input";
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
   { name: "Ask Question", href: "/ask", icon: PenSquare },
+  { name: "Campus Feed", href: "/feed", icon: Users },
 ];
 
 export function Header() {
