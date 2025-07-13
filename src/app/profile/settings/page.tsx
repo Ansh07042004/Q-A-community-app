@@ -1,14 +1,27 @@
 
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
 import { currentUser } from "@/lib/mock-data";
 import { UserCog } from "lucide-react";
 
 export default function ProfileSettingsPage() {
+  const { toast } = useToast();
+
+  const handleSaveChanges = () => {
+    // In a real application, you would handle the form submission logic here.
+    toast({
+      title: "Success!",
+      description: "Your profile information has been updated.",
+    });
+  };
+
   return (
     <div className="py-12 px-4 md:px-6">
       <div className="max-w-3xl mx-auto">
@@ -87,7 +100,7 @@ export default function ProfileSettingsPage() {
 
         <div className="mt-8 flex justify-end gap-2">
             <Button variant="outline">Cancel</Button>
-            <Button>Save Changes</Button>
+            <Button onClick={handleSaveChanges}>Save Changes</Button>
         </div>
       </div>
     </div>
