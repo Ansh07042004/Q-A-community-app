@@ -1,3 +1,59 @@
+import Link from 'next/link';
+import { ArrowRight, BookOpenText, GraduationCap, Search } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { QuestionCard } from '@/components/question-card';
+import { questions } from '@/lib/mock-data';
+
 export default function Home() {
-  return <></>;
+  return (
+    <div className="flex flex-col items-center">
+      <section className="w-full bg-card py-20 md:py-32 border-b">
+        <div className="container mx-auto px-4 md:px-6 text-center">
+          <div className="relative inline-block mb-8">
+            <GraduationCap className="h-24 w-24 md:h-32 md:w-32 text-primary animate-[float_6s_ease-in-out_infinite]" />
+          </div>
+          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary-foreground-on-card">
+            Welcome to CampusConnect
+          </h1>
+          <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
+            Your hub for collaborative learning. Ask questions, share knowledge, and connect with fellow students.
+          </p>
+          <div className="mt-8 max-w-xl mx-auto flex gap-2">
+            <div className="relative flex-grow">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input placeholder="Search for questions, topics, or keywords..." className="pl-10 h-12 text-base" />
+            </div>
+            <Button size="lg" asChild>
+              <Link href="/ask">
+                Ask a Question
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full py-12 md:py-20">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-headline text-3xl font-bold flex items-center gap-3">
+              <BookOpenText className="h-8 w-8 text-primary" />
+              Recent Questions
+            </h2>
+            <Button variant="link" asChild>
+              <Link href="/topics">
+                Browse all topics <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {questions.map((question) => (
+              <QuestionCard key={question.id} question={question} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }
