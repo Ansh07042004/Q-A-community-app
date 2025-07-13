@@ -74,7 +74,6 @@ export function Whiteboard() {
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (activeTool === 'sticky') return;
     if (!currentPath) return;
     e.preventDefault();
     setCurrentPath(prev => ({ ...(prev as Path), points: [...(prev?.points || []), getPoint(e)] }));
@@ -228,5 +227,3 @@ export function Whiteboard() {
     </Card>
   );
 }
-
-    
