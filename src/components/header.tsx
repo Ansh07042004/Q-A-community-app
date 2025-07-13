@@ -37,9 +37,11 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-           <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-              <span className="sr-only">Notifications</span>
+           <Button variant="ghost" size="icon" asChild>
+             <Link href="/notifications">
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Notifications</span>
+              </Link>
             </Button>
           <Button variant="ghost" asChild>
             <Link href="/login">Log In</Link>
@@ -50,10 +52,12 @@ export function Header() {
         </div>
 
         <div className="md:hidden flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Notifications</span>
-          </Button>
+           <Button variant="ghost" size="icon" asChild>
+             <Link href="/notifications">
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">Notifications</span>
+              </Link>
+            </Button>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
