@@ -114,7 +114,7 @@ export function Whiteboard() {
             if(currentDrawing.tool === 'eraser') {
                 newState.eraserPaths[currentDrawing.id] = currentDrawing;
             } else {
-                newState.paths[currentDrawing.id] = currentDrawing;
+                newState.paths[currentDrawing.id] = currentDrawing as Path;
             }
             // In a future step, this is where we'll send the update to Firebase
             return newState;
@@ -158,6 +158,7 @@ export function Whiteboard() {
   };
 
   const handleNoteDrag = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent SVG from handling this event
     const draggingNoteEntry = Object.entries(whiteboardState.stickyNotes).find(([, note]) => note.isDragging);
     if (!draggingNoteEntry) return;
 
