@@ -10,9 +10,11 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { currentUser } from "@/lib/mock-data";
 import { UserCog } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ProfileSettingsPage() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleSaveChanges = () => {
     // In a real application, you would handle the form submission logic here.
@@ -20,6 +22,7 @@ export default function ProfileSettingsPage() {
       title: "Success!",
       description: "Your profile information has been updated.",
     });
+    router.push("/");
   };
 
   return (
@@ -99,7 +102,7 @@ export default function ProfileSettingsPage() {
         </Card>
 
         <div className="mt-8 flex justify-end gap-2">
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline" onClick={() => router.back()}>Cancel</Button>
             <Button onClick={handleSaveChanges}>Save Changes</Button>
         </div>
       </div>
