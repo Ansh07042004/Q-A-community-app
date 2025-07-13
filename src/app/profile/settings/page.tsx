@@ -22,7 +22,7 @@ export default function ProfileSettingsPage() {
       title: "Success!",
       description: "Your profile information has been updated.",
     });
-    router.push("/");
+    router.push("/profile");
   };
 
   return (
