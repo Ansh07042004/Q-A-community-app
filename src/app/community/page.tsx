@@ -1,3 +1,5 @@
+"use client";
+
 import { UserSearch } from "lucide-react";
 import { students } from "@/lib/mock-data";
 import { StudentCard } from "@/components/student-card";
