@@ -17,3 +17,12 @@ export type Question = {
   timestamp: string;
   answers: Answer[];
 };
+
+export type Student = {
+  id: string;
+  name: string;
+  avatarUrl: string;
+  major: string;
+  year: number;
+  isOnline: boolean;
+};

@@ -1,4 +1,4 @@
-import type { Question } from './types';
+import type { Question, Student } from './types';
 
 export const questions: Question[] = [
   {
@@ -69,3 +69,16 @@ export const questions: Question[] = [
 ];
 
 export const findQuestionById = (id: string) => questions.find(q => q.id === id);
+
+export const students: Student[] = [
+    { id: 's1', name: 'Alice Johnson', avatarUrl: 'https://placehold.co/100x100.png', major: 'Computer Science', year: 3, isOnline: true },
+    { id: 's2', name: 'Bob Williams', avatarUrl: 'https://placehold.co/100x100.png', major: 'Physics', year: 2, isOnline: false },
+    { id: 's3', name: 'Charlie Brown', avatarUrl: 'https://placehold.co/100x100.png', major: 'History', year: 4, isOnline: true },
+    { id: 's4', name: 'Diana Miller', avatarUrl: 'https://placehold.co/100x100.png', major: 'Biology', year: 1, isOnline: true },
+    { id: 's5', name: 'Ethan Davis', avatarUrl: 'https://placehold.co/100x100.png', major: 'Business', year: 3, isOnline: false },
+    { id: 's6', name: 'Fiona Garcia', avatarUrl: 'https://placehold.co/100x100.png', major: 'Computer Science', year: 4, isOnline: true },
+    { id: 's7', name: 'George Rodriguez', avatarUrl: 'https://placehold.co/100x100.png', major: 'Mathematics', year: 2, isOnline: false },
+    { id: 's8', name: 'Hannah Wilson', avatarUrl: 'https://placehold.co/100x100.png', major: 'Physics', year: 1, isOnline: true },
+    { id: 's9', name: 'Ian Martinez', avatarUrl: 'https://placehold.co/100x100.png', major: 'History', year: 2, isOnline: false },
+    { id: 's10', name: 'Jessica Lee', avatarUrl: 'https://placehold.co/100x100.png', major: 'Biology', year: 4, isOnline: true },
+];
