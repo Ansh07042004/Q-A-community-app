@@ -43,12 +43,6 @@ export function Header() {
                 <span className="sr-only">Notifications</span>
               </Link>
             </Button>
-          <Button variant="ghost" asChild>
-            <Link href="/login">Log In</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/register">Sign Up</Link>
-          </Button>
         </div>
 
         <div className="md:hidden flex items-center gap-2">
@@ -85,14 +79,6 @@ export function Header() {
                 <div className="mt-6 pt-6 border-t">
                   <div className="mb-4">
                     <SearchInput placeholder="Search..." />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Button variant="outline" asChild>
-                      <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
-                    </Button>
-                    <Button asChild>
-                      <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>
-                    </Button>
                   </div>
                 </div>
               </div>
