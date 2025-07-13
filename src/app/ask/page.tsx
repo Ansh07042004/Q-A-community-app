@@ -109,7 +109,7 @@ export default function AskQuestionPage() {
                 <Label htmlFor="topic" className="text-lg font-semibold">Topic</Label>
                 <p className="text-sm text-muted-foreground">Choose a topic that best fits your question.</p>
                 <Select>
-                  <SelectTrigger id="topic">
+                  <SelectTrigger id="topic" suppressHydrationWarning>
                     <SelectValue placeholder="Select a topic" />
                   </SelectTrigger>
                   <SelectContent>
