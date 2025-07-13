@@ -1,3 +1,4 @@
+
 export type Answer = {
   id: string;
   author: string;
@@ -33,4 +34,13 @@ export type LiveDiscussion = {
   description: string;
   topic: string;
   participants: number;
+};
+
+export type Space = {
+  id: string;
+  name: string;
+  description: string;
+  memberCount: number;
+  imageUrl: string;
+  imageHint: string;
 };

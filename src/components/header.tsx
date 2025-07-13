@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, PenSquare, X, Users, UserSearch, Bell, LogOut, User as UserIcon, Radio } from "lucide-react";
+import { BookMarked, Menu, Shapes, X, Users, UserSearch, Bell, LogOut, User as UserIcon, Radio } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -23,7 +23,7 @@ import { currentUser } from "@/lib/mock-data";
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
   { name: "Live Discussion", href: "/live", icon: Radio },
-  { name: "Ask Question", href: "/ask", icon: PenSquare },
+  { name: "Discover Spaces", href: "/discover", icon: Shapes },
   { name: "Campus Feed", href: "/feed", icon: Users },
   { name: "Community", href: "/community", icon: UserSearch },
 ];

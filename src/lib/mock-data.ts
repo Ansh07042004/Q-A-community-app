@@ -1,4 +1,5 @@
-import type { Question, Student, LiveDiscussion } from './types';
+
+import type { Question, Student, LiveDiscussion, Space } from './types';
 
 export const currentUser: Student = {
     id: 's6',
@@ -139,4 +140,71 @@ export const liveDiscussions: LiveDiscussion[] = [
         topic: 'Physics',
         participants: 15,
     },
+];
+
+export const spaces: Space[] = [
+    {
+        id: 'space-cs',
+        name: 'Computer Science',
+        description: 'The official space for all things CS. Discuss algorithms, data structures, AI, and more.',
+        memberCount: 1250,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'computer code',
+    },
+    {
+        id: 'space-physics',
+        name: 'Physics Hub',
+        description: 'From classical mechanics to quantum weirdness, this is the space to explore the universe.',
+        memberCount: 840,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'galaxy stars'
+    },
+    {
+        id: 'space-bio',
+        name: 'Biology Buffs',
+        description: 'A community for students passionate about the life sciences, from microbiology to ecology.',
+        memberCount: 970,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'microscope biology'
+    },
+    {
+        id: 'space-history',
+        name: 'History Guild',
+        description: 'Discuss historical events, share interesting articles, and debate the past with fellow historians.',
+        memberCount: 620,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'ancient ruins'
+    },
+     {
+        id: 'space-math',
+        name: 'Mathletes',
+        description: 'For the love of numbers! Solve problems, discuss theorems, and explore the beauty of mathematics.',
+        memberCount: 780,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'math equations'
+    },
+    {
+        id: 'space-literature',
+        name: 'Literature Corner',
+        description: 'A cozy corner for book lovers. Discuss classic novels, modern poetry, and everything in between.',
+        memberCount: 550,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'books library'
+    },
+     {
+        id: 'space-art',
+        name: 'Art & Design',
+        description: 'Share your creations, get feedback, and find inspiration. For artists, designers, and creators.',
+        memberCount: 1100,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'art supplies'
+    },
+     {
+        id: 'space-business',
+        name: 'Business Brains',
+        description: 'Connect with future entrepreneurs and business leaders. Discuss startups, marketing, and finance.',
+        memberCount: 920,
+        imageUrl: 'https://placehold.co/600x400.png',
+        imageHint: 'business meeting'
+    }
 ];
