@@ -21,7 +21,7 @@ export default function CommunityPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Input placeholder="Search by name..." className="h-11" />
               <Select>
-                  <SelectTrigger className="h-11">
+                  <SelectTrigger className="h-11" suppressHydrationWarning>
                       <SelectValue placeholder="Filter by major" />
                   </SelectTrigger>
                   <SelectContent>
@@ -34,7 +34,7 @@ export default function CommunityPage() {
                   </SelectContent>
               </Select>
               <Select>
-                  <SelectTrigger className="h-11">
+                  <SelectTrigger className="h-11" suppressHydrationWarning>
                       <SelectValue placeholder="Filter by online status" />
                   </SelectTrigger>
                   <SelectContent>
