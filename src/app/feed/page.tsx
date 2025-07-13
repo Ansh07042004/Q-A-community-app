@@ -48,80 +48,82 @@ const feedItems = [
 
 export default function FeedPage() {
   return (
-    <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
-      <header className="mb-8">
-        <h1 className="font-headline text-4xl font-bold flex items-center gap-3">
-          <Users className="h-10 w-10 text-primary" />
-          Campus Feed
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          See what's happening in your college community.
-        </p>
-      </header>
+    <div className="py-12 px-4 md:px-6">
+      <div className="max-w-3xl mx-auto">
+        <header className="mb-8">
+          <h1 className="font-headline text-4xl font-bold flex items-center gap-3">
+            <Users className="h-10 w-10 text-primary" />
+            Campus Feed
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            See what's happening in your college community.
+          </p>
+        </header>
 
-      <main className="space-y-6">
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle>Create a Post</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-start gap-4">
-              <Avatar>
-                <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="user avatar" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-              <Textarea placeholder="What's on your mind?" className="flex-1" rows={3}/>
-            </div>
-          </CardContent>
-          <CardFooter className="flex justify-end">
-            <Button>Post</Button>
-          </CardFooter>
-        </Card>
-
-        {feedItems.map((item, index) => (
-          <Card key={index} className="shadow-md transition-shadow hover:shadow-lg">
+        <main className="space-y-6">
+          <Card className="shadow-lg">
             <CardHeader>
-              <div className="flex items-center gap-3">
-                <Avatar className="h-11 w-11">
-                  <AvatarImage src={item.avatarUrl} alt={item.author} data-ai-hint="avatar" />
-                  <AvatarFallback>{item.author.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold text-base">{item.author}</p>
-                  <p className="text-sm text-muted-foreground">{item.timestamp}</p>
-                </div>
-                {item.type !== 'post' && (
-                    <div className="ml-auto flex items-center gap-2 text-primary">
-                        <item.icon className="h-5 w-5" />
-                        <span className="font-semibold text-sm uppercase tracking-wider">{item.type}</span>
-                    </div>
-                )}
-              </div>
+              <CardTitle>Create a Post</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-foreground/90 whitespace-pre-wrap">{item.content}</p>
-              {item.type === 'event' && item.imageUrl && (
-                <div className="mt-4 rounded-lg overflow-hidden border">
-                    <Image src={item.imageUrl} alt="Event Image" width={600} height={400} className="object-cover" data-ai-hint={item.imageHint}/>
-                </div>
-              )}
+              <div className="flex items-start gap-4">
+                <Avatar>
+                  <AvatarImage src="https://placehold.co/100x100.png" data-ai-hint="user avatar" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <Textarea placeholder="What's on your mind?" className="flex-1" rows={3}/>
+              </div>
             </CardContent>
-            {(item.type === 'post' || item.type === 'event') && (
-              <CardFooter className="flex justify-between items-center border-t pt-4 mt-4">
-                <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
-                  <ThumbsUp className="h-5 w-5" /> {item.likes}
-                </Button>
-                <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
-                  <MessageSquare className="h-5 w-5" /> {item.comments}
-                </Button>
-                <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
-                  <Share2 className="h-5 w-5" /> Share
-                </Button>
-              </CardFooter>
-            )}
+            <CardFooter className="flex justify-end">
+              <Button>Post</Button>
+            </CardFooter>
           </Card>
-        ))}
-      </main>
+
+          {feedItems.map((item, index) => (
+            <Card key={index} className="shadow-md transition-shadow hover:shadow-lg">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-11 w-11">
+                    <AvatarImage src={item.avatarUrl} alt={item.author} data-ai-hint="avatar" />
+                    <AvatarFallback>{item.author.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold text-base">{item.author}</p>
+                    <p className="text-sm text-muted-foreground">{item.timestamp}</p>
+                  </div>
+                  {item.type !== 'post' && (
+                      <div className="ml-auto flex items-center gap-2 text-primary">
+                          <item.icon className="h-5 w-5" />
+                          <span className="font-semibold text-sm uppercase tracking-wider">{item.type}</span>
+                      </div>
+                  )}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/90 whitespace-pre-wrap">{item.content}</p>
+                {item.type === 'event' && item.imageUrl && (
+                  <div className="mt-4 rounded-lg overflow-hidden border">
+                      <Image src={item.imageUrl} alt="Event Image" width={600} height={400} className="object-cover w-full" data-ai-hint={item.imageHint}/>
+                  </div>
+                )}
+              </CardContent>
+              {(item.type === 'post' || item.type === 'event') && (
+                <CardFooter className="flex justify-between items-center border-t pt-4 mt-4">
+                  <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
+                    <ThumbsUp className="h-5 w-5" /> {item.likes}
+                  </Button>
+                  <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
+                    <MessageSquare className="h-5 w-5" /> {item.comments}
+                  </Button>
+                  <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground">
+                    <Share2 className="h-5 w-5" /> Share
+                  </Button>
+                </CardFooter>
+              )}
+            </Card>
+          ))}
+        </main>
+      </div>
     </div>
   );
 }

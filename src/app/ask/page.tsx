@@ -8,8 +8,8 @@ import { PenSquare } from "lucide-react";
 
 export default function AskQuestionPage() {
   return (
-    <div className="container mx-auto max-w-3xl py-12 px-4 md:px-6">
-      <Card className="shadow-lg">
+    <div className="py-12 px-4 md:px-6">
+      <Card className="shadow-lg max-w-3xl mx-auto">
         <CardHeader>
           <div className="flex items-center gap-4">
             <PenSquare className="h-8 w-8 text-primary" />

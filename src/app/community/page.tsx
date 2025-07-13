@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export default function CommunityPage() {
   return (
-    <div className="container mx-auto max-w-7xl py-12 px-4 md:px-6">
+    <div className="py-12 px-4 md:px-6">
       <header className="mb-12 text-center">
         <UserSearch className="mx-auto h-16 w-16 text-primary" />
         <h1 className="font-headline text-5xl font-bold mt-4">Meet the Community</h1>
@@ -44,7 +44,7 @@ export default function CommunityPage() {
       </div>
 
       <main>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
           {students.map((student) => (
             <StudentCard key={student.id} student={student} />
           ))}

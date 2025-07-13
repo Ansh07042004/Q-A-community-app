@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       <section className="w-full bg-card py-20 md:py-32 border-b">
-        <div className="container mx-auto px-4 md:px-6 text-center">
+        <div className="px-4 md:px-6 text-center">
           <div className="relative inline-block mb-8">
             <GraduationCap className="h-24 w-24 md:h-32 md:w-32 text-primary animate-[float_6s_ease-in-out_infinite]" />
           </div>
@@ -36,7 +36,7 @@ export default function Home() {
       </section>
 
       <section className="w-full py-12 md:py-20">
-        <div className="container mx-auto px-4 md:px-6">
+        <div className="px-4 md:px-6">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-headline text-3xl font-bold flex items-center gap-3">
               <BookOpenText className="h-8 w-8 text-primary" />
@@ -48,7 +48,7 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             {questions.map((question) => (
               <QuestionCard key={question.id} question={question} />
             ))}

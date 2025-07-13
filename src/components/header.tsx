@@ -20,7 +20,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-6">
           <Logo />
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -32,7 +32,7 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="hidden md:flex items-center gap-4 flex-1 max-w-xs">
+        <div className="hidden md:flex items-center gap-4 flex-1 max-w-xs mx-auto">
            <SearchInput placeholder="Search..." />
         </div>
 
