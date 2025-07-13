@@ -45,13 +45,12 @@ type WhiteboardState = {
     stickyNotes: Record<string, StickyNoteType>;
 }
 
-function getPoint(e: React.MouseEvent | React.TouchEvent) {
-  const target = e.currentTarget as SVGSVGElement;
-  const svg = target.getBoundingClientRect();
+function getPoint(e: React.MouseEvent | React.TouchEvent, svg: SVGSVGElement) {
+  const rect = svg.getBoundingClientRect();
   if ('touches' in e.nativeEvent) {
-    return { x: e.nativeEvent.touches[0].clientX - svg.left, y: e.nativeEvent.touches[0].clientY - svg.top };
+    return { x: e.nativeEvent.touches[0].clientX - rect.left, y: e.nativeEvent.touches[0].clientY - rect.top };
   }
-  return { x: e.nativeEvent.clientX - svg.left, y: e.nativeEvent.clientY - svg.top };
+  return { x: e.nativeEvent.clientX - rect.left, y: e.nativeEvent.clientY - rect.top };
 }
 
 function SvgPath({ path }: { path: Path | EraserPath }) {
@@ -78,7 +77,7 @@ export function Whiteboard() {
   
   const [activeTool, setActiveTool] = useState<'pen' | 'highlighter' | 'eraser' | 'sticky'>('pen');
   const [currentColor, setCurrentColor] = useState('#000000');
-  const whiteboardRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const toolConfig = {
     pen: { strokeWidth: 3 },
@@ -87,12 +86,13 @@ export function Whiteboard() {
   };
 
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if (e.target !== svgRef.current) return; // Ignore clicks not directly on the SVG
     e.preventDefault();
     if (activeTool === 'sticky') return;
 
     const newPath = {
         id: `path-${Date.now()}`,
-        points: [getPoint(e)],
+        points: [getPoint(e, svgRef.current!)],
         strokeWidth: toolConfig[activeTool].strokeWidth,
         tool: activeTool,
         ...(activeTool !== 'eraser' && { color: currentColor }),
@@ -102,9 +102,10 @@ export function Whiteboard() {
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (e.target !== svgRef.current) return; // Ignore moves not directly on the SVG
     if (!currentDrawing) return;
     e.preventDefault();
-    setCurrentDrawing(prev => ({ ...(prev as Path | EraserPath), points: [...(prev?.points || []), getPoint(e)] }));
+    setCurrentDrawing(prev => ({ ...(prev as Path | EraserPath), points: [...(prev?.points || []), getPoint(e, svgRef.current!)] }));
   };
 
   const handlePointerUp = () => {
@@ -158,9 +159,10 @@ export function Whiteboard() {
   };
 
   const handleNoteDrag = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent SVG from handling this event
     const draggingNoteEntry = Object.entries(whiteboardState.stickyNotes).find(([, note]) => note.isDragging);
     if (!draggingNoteEntry) return;
+
+    e.stopPropagation(); // Prevent SVG from handling this event
 
     const [id, draggingNote] = draggingNoteEntry;
     if (!draggingNote.dragOffset) return;
@@ -206,8 +208,9 @@ export function Whiteboard() {
 
   return (
     <Card className="h-full flex flex-col shadow-lg" onMouseMove={handleNoteDrag} onMouseUp={handleNoteDragEnd}>
-        <CardContent className="p-0 flex-1 relative" ref={whiteboardRef}>
+        <CardContent className="p-0 flex-1 relative">
             <svg
+                ref={svgRef}
                 className="w-full h-full touch-none bg-card rounded-t-lg"
                 onMouseDown={handlePointerDown}
                 onMouseMove={handlePointerMove}
