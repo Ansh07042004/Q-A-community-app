@@ -36,7 +36,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="text-center">
                     <p className="font-bold text-2xl text-foreground">1,280</p>
-                    <p>XP</p>
+                    <p>Reputation</p>
                 </div>
               </div>
             </div>
