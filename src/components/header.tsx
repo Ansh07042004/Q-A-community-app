@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, PenSquare, X, Users, UserSearch } from "lucide-react";
+import { BookMarked, Menu, PenSquare, X, Users, UserSearch, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -37,6 +37,10 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
+           <Button variant="ghost" size="icon">
+              <Bell className="h-5 w-5" />
+              <span className="sr-only">Notifications</span>
+            </Button>
           <Button variant="ghost" asChild>
             <Link href="/login">Log In</Link>
           </Button>
@@ -45,7 +49,11 @@ export function Header() {
           </Button>
         </div>
 
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-2">
+          <Button variant="ghost" size="icon">
+            <Bell className="h-5 w-5" />
+            <span className="sr-only">Notifications</span>
+          </Button>
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
