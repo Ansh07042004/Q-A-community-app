@@ -68,12 +68,13 @@ export function Whiteboard() {
     setCurrentPath({ 
       points: [getPoint(e)], 
       color: currentColor, 
-      strokeWidth: toolConfig[activeTool].strokeWidth, 
-      tool: activeTool 
+      strokeWidth: toolConfig[activeTool as keyof typeof toolConfig].strokeWidth, 
+      tool: activeTool as 'pen' | 'highlighter' | 'eraser'
     });
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (activeTool === 'sticky') return;
     if (!currentPath) return;
     e.preventDefault();
     setCurrentPath(prev => ({ ...(prev as Path), points: [...(prev?.points || []), getPoint(e)] }));
