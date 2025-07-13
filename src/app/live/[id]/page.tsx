@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Radio, Send, Users } from "lucide-react";
+import { Radio, Send, Users, MessageCircle, PenLine } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Whiteboard } from "@/components/whiteboard";
 
 const participants = [
   { name: "Alice J.", avatar: "https://placehold.co/100x100.png" },
@@ -45,51 +47,59 @@ export default function LiveDiscussionRoomPage() {
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-0">
         <div className="lg:col-span-3 flex flex-col">
-          <Card className="h-full flex flex-col shadow-lg">
-            <CardHeader>
-              <CardTitle>Chat Room</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col p-0">
-              <ScrollArea className="flex-1 p-6">
-                <div className="space-y-6">
-                  {messages.map((msg, index) => (
-                    <div
-                      key={index}
-                      className={`flex items-start gap-3 ${msg.isCurrentUser ? "justify-end" : ""}`}
-                    >
-                      {!msg.isCurrentUser && (
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage src="https://placehold.co/100x100.png" alt={msg.author} data-ai-hint="avatar" />
-                          <AvatarFallback>{msg.author.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                      )}
-                      <div className={`flex flex-col ${msg.isCurrentUser ? "items-end" : "items-start"}`}>
-                          <div className={`rounded-lg px-4 py-2 max-w-sm ${msg.isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-                              {!msg.isCurrentUser && <p className="text-xs font-semibold pb-1">{msg.author}</p>}
-                              <p>{msg.content}</p>
+          <Tabs defaultValue="chat" className="h-full flex flex-col">
+              <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="chat"><MessageCircle className="mr-2 h-4 w-4" />Chat</TabsTrigger>
+                  <TabsTrigger value="whiteboard"><PenLine className="mr-2 h-4 w-4" />Whiteboard</TabsTrigger>
+              </TabsList>
+              <TabsContent value="chat" className="flex-1 flex flex-col mt-4">
+                <Card className="h-full flex flex-col shadow-lg">
+                  <CardContent className="flex-1 flex flex-col p-0">
+                    <ScrollArea className="flex-1 p-6">
+                      <div className="space-y-6">
+                        {messages.map((msg, index) => (
+                          <div
+                            key={index}
+                            className={`flex items-start gap-3 ${msg.isCurrentUser ? "justify-end" : ""}`}
+                          >
+                            {!msg.isCurrentUser && (
+                              <Avatar className="h-9 w-9">
+                                <AvatarImage src="https://placehold.co/100x100.png" alt={msg.author} data-ai-hint="avatar" />
+                                <AvatarFallback>{msg.author.charAt(0)}</AvatarFallback>
+                              </Avatar>
+                            )}
+                            <div className={`flex flex-col ${msg.isCurrentUser ? "items-end" : "items-start"}`}>
+                                <div className={`rounded-lg px-4 py-2 max-w-sm ${msg.isCurrentUser ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                                    {!msg.isCurrentUser && <p className="text-xs font-semibold pb-1">{msg.author}</p>}
+                                    <p>{msg.content}</p>
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1">{msg.time}</p>
+                            </div>
+                            {msg.isCurrentUser && (
+                              <Avatar className="h-9 w-9">
+                                <AvatarImage src="https://placehold.co/100x100.png" alt={msg.author} data-ai-hint="user avatar" />
+                                <AvatarFallback>{msg.author.charAt(0)}</AvatarFallback>
+                              </Avatar>
+                            )}
                           </div>
-                          <p className="text-xs text-muted-foreground mt-1">{msg.time}</p>
+                        ))}
                       </div>
-                      {msg.isCurrentUser && (
-                        <Avatar className="h-9 w-9">
-                          <AvatarImage src="https://placehold.co/100x100.png" alt={msg.author} data-ai-hint="user avatar" />
-                          <AvatarFallback>{msg.author.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                      )}
+                    </ScrollArea>
+                    <div className="p-4 border-t bg-background/50">
+                      <form className="flex items-center gap-2">
+                        <Input placeholder="Type your message..." className="flex-1" />
+                        <Button type="submit">
+                          <Send className="h-4 w-4" />
+                        </Button>
+                      </form>
                     </div>
-                  ))}
-                </div>
-              </ScrollArea>
-              <div className="p-4 border-t bg-background/50">
-                <form className="flex items-center gap-2">
-                  <Input placeholder="Type your message..." className="flex-1" />
-                  <Button type="submit">
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </form>
-              </div>
-            </CardContent>
-          </Card>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+              <TabsContent value="whiteboard" className="flex-1 mt-4">
+                  <Whiteboard />
+              </TabsContent>
+          </Tabs>
         </div>
 
         <Card className="hidden lg:flex flex-col shadow-lg">
