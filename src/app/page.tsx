@@ -7,13 +7,13 @@ import { SearchInput } from '@/components/search-input';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
+    <div>
       <section className="w-full bg-card py-20 md:py-32 border-b">
         <div className="px-4 md:px-6 text-center">
           <div className="relative inline-block mb-8">
             <GraduationCap className="h-24 w-24 md:h-32 md:w-32 text-primary animate-[float_6s_ease-in-out_infinite]" />
           </div>
-          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight text-primary-foreground-on-card">
+          <h1 className="font-headline text-4xl md:text-6xl font-bold tracking-tight">
             Welcome to CampusConnect
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground">
@@ -48,8 +48,8 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-            {questions.map((question) => (
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            {questions.slice(0, 5).map((question) => (
               <QuestionCard key={question.id} question={question} />
             ))}
           </div>

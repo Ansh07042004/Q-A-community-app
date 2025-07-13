@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, PenSquare, X, Users, UserSearch, Bell } from "lucide-react";
+import { BookMarked, Menu, PenSquare, X, Users, UserSearch, Bell, LogOut, User as UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { SearchInput } from "./search-input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { currentUser } from "@/lib/mock-data";
+
 
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
@@ -20,7 +31,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card shadow-sm">
-      <div className="flex h-16 items-center justify-between px-4 md:px-6">
+      <div className="flex h-16 items-center px-4 md:px-6">
         <div className="flex items-center gap-6">
           <Logo />
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
@@ -43,6 +54,40 @@ export function Header() {
                 <span className="sr-only">Notifications</span>
               </Link>
             </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={currentUser.avatarUrl} alt={currentUser.name} data-ai-hint="user avatar" />
+                    <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">{currentUser.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {currentUser.major}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/profile">
+                    <UserIcon className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                   <Link href="/login">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
         </div>
 
         <div className="md:hidden flex items-center gap-2">
@@ -80,6 +125,14 @@ export function Header() {
                   <div className="mb-4">
                     <SearchInput placeholder="Search..." />
                   </div>
+                  <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-md p-2 text-lg font-medium hover:bg-muted">
+                    <UserIcon className="h-5 w-5 text-primary" />
+                    Profile
+                  </Link>
+                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-md p-2 text-lg font-medium hover:bg-muted text-destructive">
+                    <LogOut className="h-5 w-5" />
+                    Log Out
+                  </Link>
                 </div>
               </div>
             </SheetContent>

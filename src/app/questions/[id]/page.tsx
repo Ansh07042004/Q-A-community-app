@@ -36,7 +36,7 @@ export default function QuestionPage({ params }: { params: { id: string } }) {
             </div>
           </header>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/90">
+          <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/90 whitespace-pre-wrap">
             <p>{question.content}</p>
           </div>
         </article>

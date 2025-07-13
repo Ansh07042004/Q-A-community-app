@@ -15,7 +15,7 @@ export default function CommunityPage() {
         </p>
       </header>
       
-      <div className="mb-8 p-4 bg-card border rounded-lg shadow-sm">
+      <div className="mb-8 p-4 bg-card border rounded-lg shadow-sm max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Input placeholder="Search by name..." className="h-11" />
               <Select>
@@ -43,7 +43,7 @@ export default function CommunityPage() {
           </div>
       </div>
 
-      <main>
+      <main className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
           {students.map((student) => (
             <StudentCard key={student.id} student={student} />

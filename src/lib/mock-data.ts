@@ -1,5 +1,14 @@
 import type { Question, Student } from './types';
 
+export const currentUser: Student = {
+    id: 's6',
+    name: 'Fiona Garcia',
+    avatarUrl: 'https://placehold.co/100x100.png',
+    major: 'Computer Science',
+    year: 4,
+    isOnline: true
+};
+
 export const questions: Question[] = [
   {
     id: '1',
@@ -45,6 +54,14 @@ export const questions: Question[] = [
         upvotes: 19,
         timestamp: '4 days ago',
       },
+      {
+        id: 'a4',
+        author: 'Fiona Garcia',
+        avatarUrl: 'https://placehold.co/100x100.png',
+        content: 'To add to that, the light-independent reactions (or Calvin Cycle) use the ATP and NADPH to convert CO2 into glucose. This happens in the stroma of the chloroplasts. It\'s a cycle because the starting materials are regenerated.',
+        upvotes: 12,
+        timestamp: '3 days ago',
+      }
     ],
   },
   {
@@ -57,7 +74,7 @@ export const questions: Question[] = [
     timestamp: '1 week ago',
     answers: [
       {
-        id: 'a4',
+        id: 'a5',
         author: 'Mary B.',
         avatarUrl: 'https://placehold.co/100x100.png',
         content: 'It\'s a complex issue with no single cause. Key factors include political instability (a rapid succession of weak emperors), economic troubles (over-reliance on slave labor, inflation), overexpansion and military overspending, and the rise of the Eastern Empire, which shifted power and resources away from the West.',
@@ -65,6 +82,16 @@ export const questions: Question[] = [
         timestamp: '6 days ago',
       },
     ],
+  },
+    {
+    id: '4',
+    title: 'How do you implement a linked list in Java?',
+    author: 'Fiona Garcia',
+    avatarUrl: 'https://placehold.co/100x100.png',
+    topic: 'Computer Science',
+    content: 'I\'m preparing for a technical interview and need a refresher on data structures. Can someone provide a simple implementation of a singly linked list in Java, with methods for adding and removing nodes?',
+    timestamp: '3 days ago',
+    answers: [],
   }
 ];
 
