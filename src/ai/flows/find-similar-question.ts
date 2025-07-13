@@ -24,14 +24,14 @@ const QuestionSchema = z.object({
 });
 
 
-export const FindSimilarQuestionInputSchema = z.object({
+const FindSimilarQuestionInputSchema = z.object({
   newQuestionTitle: z.string().describe('The title of the new question being asked.'),
   existingQuestions: z.array(QuestionSchema).describe('A list of existing questions to compare against.'),
 });
 export type FindSimilarQuestionInput = z.infer<typeof FindSimilarQuestionInputSchema>;
 
 
-export const FindSimilarQuestionOutputSchema = z.object({
+const FindSimilarQuestionOutputSchema = z.object({
   isSimilar: z.boolean().describe('Whether a similar question was found.'),
   similarQuestionId: z.string().optional().describe('The ID of the most similar question found.'),
   justification: z.string().describe('An explanation of why the question is or is not considered similar.'),
