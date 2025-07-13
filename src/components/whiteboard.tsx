@@ -1,14 +1,13 @@
 
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Eraser, Pen, Highlighter, StickyNote } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from '@/lib/utils';
 // Note: Firebase integration will be added in subsequent steps.
-// For now, we are refactoring to prepare for it.
 
 type Point = { x: number; y: number };
 
@@ -45,7 +44,7 @@ type WhiteboardState = {
     stickyNotes: Record<string, StickyNoteType>;
 }
 
-function getPoint(e: React.MouseEvent | React.TouchEvent, svg: SVGSVGElement) {
+function getPoint(e: React.MouseEvent | React.TouchEvent, svg: SVGSVGElement): Point {
   const rect = svg.getBoundingClientRect();
   if ('touches' in e.nativeEvent) {
     return { x: e.nativeEvent.touches[0].clientX - rect.left, y: e.nativeEvent.touches[0].clientY - rect.top };
@@ -69,15 +68,13 @@ function SvgPath({ path }: { path: Path | EraserPath }) {
 const colors = ['#000000', '#EF4444', '#3B82F6', '#22C55E', '#F97316', '#FDE047'];
 
 export function Whiteboard() {
-  // The complete state of the whiteboard, will be synced with Firebase
   const [whiteboardState, setWhiteboardState] = useState<WhiteboardState>({ paths: {}, eraserPaths: {}, stickyNotes: {} });
-
-  // Local state for drawing in real-time
   const [currentDrawing, setCurrentDrawing] = useState<Path | EraserPath | null>(null);
   
   const [activeTool, setActiveTool] = useState<'pen' | 'highlighter' | 'eraser' | 'sticky'>('pen');
   const [currentColor, setCurrentColor] = useState('#000000');
   const svgRef = useRef<SVGSVGElement>(null);
+  const isDrawing = useRef(false);
 
   const toolConfig = {
     pen: { strokeWidth: 3 },
@@ -86,13 +83,16 @@ export function Whiteboard() {
   };
 
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
-    if (e.target !== svgRef.current) return; // Ignore clicks not directly on the SVG
     e.preventDefault();
-    if (activeTool === 'sticky') return;
+    if (activeTool === 'sticky' || e.target !== svgRef.current) return;
+    
+    isDrawing.current = true;
+    const svg = svgRef.current;
+    if (!svg) return;
 
     const newPath = {
         id: `path-${Date.now()}`,
-        points: [getPoint(e, svgRef.current!)],
+        points: [getPoint(e, svg)],
         strokeWidth: toolConfig[activeTool].strokeWidth,
         tool: activeTool,
         ...(activeTool !== 'eraser' && { color: currentColor }),
@@ -102,22 +102,29 @@ export function Whiteboard() {
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (e.target !== svgRef.current) return; // Ignore moves not directly on the SVG
-    if (!currentDrawing) return;
+    if (!isDrawing.current || !currentDrawing) return;
     e.preventDefault();
-    setCurrentDrawing(prev => ({ ...(prev as Path | EraserPath), points: [...(prev?.points || []), getPoint(e, svgRef.current!)] }));
+    const svg = svgRef.current;
+    if (!svg) return;
+
+    setCurrentDrawing(prev => {
+        if (!prev) return null;
+        return { ...prev, points: [...prev.points, getPoint(e, svg)] };
+    });
   };
 
   const handlePointerUp = () => {
+    if (!isDrawing.current) return;
+    isDrawing.current = false;
+
     if (currentDrawing && currentDrawing.points.length > 1) {
         setWhiteboardState(prevState => {
             const newState = {...prevState};
             if(currentDrawing.tool === 'eraser') {
-                newState.eraserPaths[currentDrawing.id] = currentDrawing;
+                newState.eraserPaths[currentDrawing.id] = currentDrawing as EraserPath;
             } else {
                 newState.paths[currentDrawing.id] = currentDrawing as Path;
             }
-            // In a future step, this is where we'll send the update to Firebase
             return newState;
         });
     }
@@ -127,7 +134,6 @@ export function Whiteboard() {
   const handleClear = () => {
     setWhiteboardState({ paths: {}, eraserPaths: {}, stickyNotes: {} });
     setCurrentDrawing(null);
-    // In a future step, this will clear the data in Firebase
   };
 
   const addStickyNote = () => {
@@ -137,10 +143,9 @@ export function Whiteboard() {
       x: 100,
       y: 100,
       text: 'New Note',
-      color: '#FDE047', // Yellow color
+      color: '#FDE047',
     };
     setWhiteboardState(prev => ({...prev, stickyNotes: {...prev.stickyNotes, [id]: newNote}}));
-    // In a future step, this will add the note to Firebase
   }
 
   const handleNoteDragStart = (id: string, e: React.MouseEvent) => {
@@ -162,7 +167,7 @@ export function Whiteboard() {
     const draggingNoteEntry = Object.entries(whiteboardState.stickyNotes).find(([, note]) => note.isDragging);
     if (!draggingNoteEntry) return;
 
-    e.stopPropagation(); // Prevent SVG from handling this event
+    e.stopPropagation();
 
     const [id, draggingNote] = draggingNoteEntry;
     if (!draggingNote.dragOffset) return;
@@ -172,7 +177,6 @@ export function Whiteboard() {
 
     const updatedNote = { ...draggingNote, x: newX, y: newY };
     setWhiteboardState(prev => ({...prev, stickyNotes: {...prev.stickyNotes, [id]: updatedNote}}));
-    // In a future step, this will update the note position in Firebase (throttled)
   };
   
   const handleNoteDragEnd = () => {
@@ -183,14 +187,12 @@ export function Whiteboard() {
           }
           return {...prev, stickyNotes: updatedNotes};
       });
-      // In a future step, this finalizes the position in Firebase
   };
 
   const handleNoteTextChange = (id: string, text: string) => {
     const note = whiteboardState.stickyNotes[id];
     if (!note) return;
     setWhiteboardState(prev => ({...prev, stickyNotes: {...prev.stickyNotes, [id]: {...note, text}}}));
-    // In a future step, this will update the text in Firebase (debounced)
   };
   
   const handleNoteDoubleClick = (id: string) => {
@@ -203,11 +205,10 @@ export function Whiteboard() {
       const note = whiteboardState.stickyNotes[id];
       if (!note) return;
       setWhiteboardState(prev => ({...prev, stickyNotes: {...prev.stickyNotes, [id]: {...note, isEditing: false}}}));
-      // In a future step, this will save the final text to Firebase
   };
 
   return (
-    <Card className="h-full flex flex-col shadow-lg" onMouseMove={handleNoteDrag} onMouseUp={handleNoteDragEnd}>
+    <Card className="h-full flex flex-col shadow-lg" onMouseMove={handleNoteDrag} onMouseUp={handleNoteDragEnd} onMouseLeave={handleNoteDragEnd}>
         <CardContent className="p-0 flex-1 relative">
             <svg
                 ref={svgRef}
