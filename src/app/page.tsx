@@ -42,8 +42,8 @@ export default function Home() {
               Recent Questions
             </h2>
             <Button variant="link" asChild>
-              <Link href="/topics">
-                Browse all topics <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href="/questions">
+                Browse all questions <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>

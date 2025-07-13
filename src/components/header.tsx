@@ -10,7 +10,7 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { name: "Browse Topics", href: "/topics", icon: BookMarked },
+  { name: "All Questions", href: "/questions", icon: BookMarked },
   { name: "Ask Question", href: "/ask", icon: PenSquare },
 ];
 
