@@ -1,4 +1,4 @@
-# Firebase Studio
+# Q-A Community app.
 
 This is a NextJS starter in Firebase Studio.
 
