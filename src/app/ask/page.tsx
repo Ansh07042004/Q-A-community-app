@@ -9,15 +9,19 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { PenSquare, Info, LoaderCircle, Sparkles } from "lucide-react";
+import { PenSquare, Info, LoaderCircle, Sparkles, BrainCircuit } from "lucide-react";
 import { findSimilarQuestion, type FindSimilarQuestionOutput } from "@/ai/flows/find-similar-question";
+import { answerQuestion } from "@/ai/flows/answer-question";
 import { questions } from "@/lib/mock-data";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 export default function AskQuestionPage() {
   const [title, setTitle] = useState("");
   const [isChecking, setIsChecking] = useState(false);
+  const [isGettingAnswer, setIsGettingAnswer] = useState(false);
   const [suggestion, setSuggestion] = useState<FindSimilarQuestionOutput | null>(null);
+  const [aiAnswer, setAiAnswer] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleTitleBlur = async () => {
@@ -55,6 +59,34 @@ export default function AskQuestionPage() {
       setIsChecking(false);
     }
   };
+
+  const handleGetAiAnswer = async () => {
+    if (title.trim().length < 10) {
+      toast({
+        variant: "destructive",
+        title: "Question is too short",
+        description: "Please provide more detail in your question title.",
+      });
+      return;
+    }
+
+    setIsGettingAnswer(true);
+    setAiAnswer(null);
+    try {
+        const result = await answerQuestion({ question: title });
+        setAiAnswer(result.answer);
+    } catch (error) {
+       console.error("Failed to get AI answer:", error);
+       toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Could not generate an AI answer. Please try again.",
+      });
+    } finally {
+        setIsGettingAnswer(false);
+    }
+  };
+
 
   return (
     <div className="py-12 px-4 md:px-6">
@@ -104,6 +136,26 @@ export default function AskQuestionPage() {
                   </AlertDescription>
                 </Alert>
               )}
+
+              <div className="p-4 rounded-lg bg-muted/50 text-center">
+                  <p className="text-sm text-muted-foreground mb-3">Want a quick answer while you wait for the community?</p>
+                  <Button type="button" variant="secondary" onClick={handleGetAiAnswer} disabled={isGettingAnswer || title.trim().length < 10}>
+                      {isGettingAnswer ? <LoaderCircle className="mr-2 h-4 w-4 animate-spin" /> : <BrainCircuit className="mr-2 h-4 w-4" />}
+                      {isGettingAnswer ? "Thinking..." : "Get an Instant AI Answer"}
+                  </Button>
+              </div>
+
+              {aiAnswer && (
+                 <Alert variant="default" className="bg-accent/10 border-accent/20">
+                   <BrainCircuit className="h-4 w-4 text-accent-foreground" />
+                  <AlertTitle className="font-headline text-lg text-accent-foreground">Instant AI Answer</AlertTitle>
+                  <AlertDescription className="text-foreground/90 space-y-2 whitespace-pre-wrap">
+                    {aiAnswer}
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              <Separator />
 
               <div className="space-y-2">
                 <Label htmlFor="topic" className="text-lg font-semibold">Topic</Label>

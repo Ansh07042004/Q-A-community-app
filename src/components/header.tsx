@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, Shapes, X, Users, UserSearch, Bell, LogOut, User as UserIcon, Radio } from "lucide-react";
+import { BookMarked, Menu, Shapes, X, Users, UserSearch, Bell, LogOut, User as UserIcon, Radio, Bot, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
@@ -22,6 +22,7 @@ import { currentUser } from "@/lib/mock-data";
 
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
+  { name: "AI Chat", href: "/chat", icon: Bot },
   { name: "Live Discussion", href: "/live", icon: Radio },
   { name: "Discover Spaces", href: "/discover", icon: Shapes },
   { name: "Campus Feed", href: "/feed", icon: Users },
@@ -49,7 +50,7 @@ export function Header() {
            <SearchInput placeholder="Search..." />
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2 ml-auto">
            <Button variant="ghost" size="icon" asChild>
              <Link href="/notifications">
                 <Bell className="h-5 w-5" />
@@ -81,6 +82,12 @@ export function Header() {
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
+                 <DropdownMenuItem asChild>
+                   <Link href="/profile/settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                    <Link href="/login">
@@ -92,7 +99,7 @@ export function Header() {
             </DropdownMenu>
         </div>
 
-        <div className="md:hidden flex items-center gap-2">
+        <div className="md:hidden flex items-center gap-2 ml-auto">
            <Button variant="ghost" size="icon" asChild>
              <Link href="/notifications">
                 <Bell className="h-5 w-5" />
@@ -128,10 +135,16 @@ export function Header() {
                     <SearchInput placeholder="Search..." />
                   </div>
                   <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-md p-2 text-lg font-medium hover:bg-muted">
-                    <UserIcon className="h-5 w-5 text-primary" />
-                    Profile
+                     <Avatar className="h-9 w-9">
+                        <AvatarImage src={currentUser.avatarUrl} alt={currentUser.name} data-ai-hint="user avatar" />
+                        <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium leading-none">{currentUser.name}</p>
+                        <p className="text-xs leading-none text-muted-foreground">View Profile</p>
+                      </div>
                   </Link>
-                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-md p-2 text-lg font-medium hover:bg-muted text-destructive">
+                  <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 rounded-md p-2 text-lg font-medium hover:bg-muted text-destructive mt-2">
                     <LogOut className="h-5 w-5" />
                     Log Out
                   </Link>
