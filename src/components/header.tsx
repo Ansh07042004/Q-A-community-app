@@ -22,7 +22,6 @@ import { currentUser } from "@/lib/mock-data";
 
 const navItems = [
   { name: "All Questions", href: "/questions", icon: BookMarked },
-  { name: "AI Chat", href: "/chat", icon: Bot },
   { name: "Live Discussion", href: "/live", icon: Radio },
   { name: "Discover Spaces", href: "/discover", icon: Shapes },
   { name: "Campus Feed", href: "/feed", icon: Users },
